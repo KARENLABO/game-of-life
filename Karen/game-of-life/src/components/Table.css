@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+
 .table-container{
     width:100vw;
     height: 100vh;
@@ -5,4 +8,28 @@
 
 td{
     border: 1px #eee solid;
+}
+
+.butons-menu{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    margin-bottom: 1rem;
+    gap: 2rem;
+    min-height: 7rem;
+
+   
+}
+
+
+button{
+    color: white;
+    background-color: #6420ff;
+    border-radius: 5px;
+    border-color: #6420ff;
+    width:8rem;
+    height: 2rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
