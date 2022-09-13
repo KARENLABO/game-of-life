@@ -1,0 +1,8 @@
+.table-container{
+    width:100vw;
+    height: 100vh;
+}
+
+td{
+    border: 1px #eee solid;
+}
