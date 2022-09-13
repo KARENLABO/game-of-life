@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import Cell from './Cell';
 import './Table.css';
 
 
@@ -17,33 +17,42 @@ const generateNewArray = (value) => {
 
 
 function Table() {
+  const [isClickable, setClickable] = useState(true);
+
     const rows = generateNewArray(numRows);
     const columns = generateNewArray(numCols);
 
+    const onClickStart = () => {
+      setClickable(!isClickable);
+    }
+    
     return(
-        <table className='table-container' cellPadding={0} cellSpacing={0}> 
-          <tbody>
-          {
-            rows.map((row, x) => {
-              return (
-                <tr key={x}>
-                  {
-                    columns.map((column, y) => {
-                      return(
-                        <td 
-                        style={{
-                          background:{background}
-                        }} 
-                        onClick={() =>changeState(x,y)} id={x+"-"+y} key={y}></td>
-                      )
-                    })
-                  }
-                </tr>
-              )
-            })
-          }
-          </tbody>
-        </table>
+      <div>
+        <div>
+          <button onClick={onClickStart}>{isClickable ? 'Start' : 'Stop'}</button>
+        </div>
+        <div>
+          <table className='table-container' cellPadding={0} cellSpacing={0}> 
+            <tbody>
+            {
+              rows.map((row, x) => {
+                return (
+                  <tr key={x}>
+                    {
+                      columns.map((column, y) => {
+                        return(
+                          <Cell x={x} y={y} isClickable={isClickable}/>
+                        )
+                      })
+                    }
+                  </tr>
+                )
+              })
+            }
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
 }
 
