@@ -1,4 +1,4 @@
-export const evaluateAlive = (x,y, cells) => {
+const evaluateAlive = (x,y, cells) => {
     let alive = 0;
     for(let i= -1; i<=1; i++){
       for(let j = -1; j<=1; j++){
