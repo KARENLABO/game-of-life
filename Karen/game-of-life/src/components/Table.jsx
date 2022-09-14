@@ -53,11 +53,17 @@ function Table() {
           </div>
 
           <div className='menus-buttons'>
-            <button onClick={onClickStart} disabled={runProgram}>
-              Start</button>
-            <button onClick={onClickPause} disabled={!runProgram}>Pause</button>
-            <button onClick={onClickCustom}>Random Values</button>
-            <button onClick={onClickClear}>Clear Matrix</button>
+            <i 
+              onClick={runProgram? onClickPause : onClickStart}  
+              className={runProgram? "gg-play-pause-r" : "gg-play-button-r"}>
+            </i>
+            <i
+              onClick= {onClickClear}
+              className="gg-trash">
+
+            </i>
+
+            <i onClick={onClickCustom} className="gg-arrows-exchange"></i>
           </div>
         </div>
       
