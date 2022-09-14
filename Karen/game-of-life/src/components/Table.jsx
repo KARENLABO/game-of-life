@@ -20,11 +20,12 @@ function Table() {
 
     const evaluateAlive = (x,y) => {
       let alive = 0;
-      for(let i= -1; i<1; i++){
+      for(let i= -1; i<=1; i++){
         for(let j = -1; j<=1; j++){
           if(i === 0 && j=== 0 ){
             continue
-          }try{
+          }
+          try{
             if(cells[x+i][y+j]){
               alive++
             }
