@@ -1,30 +1,69 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cell from './Cell';
 import './Table.css';
 
+
 function Table() {
-  const [isClickable, setClickable] = useState(true);
-  const cells = new Array(80).fill('').map(() => new Array(80).fill(Math.random()<0.5));;
+  const spaces = 60;
+  const [cells, setCells] = useState(new Array(spaces).fill('').map(() => new Array(spaces).fill(Math.random()<.5)));
 
     const onClickStart = () => {
-      setClickable(!isClickable);
-      createRandom()
+      nextState();
     }
+    
+    const evaluateAlive = (x,y) => {
+      let alive = 0;
+      for(let i= -1; i<1; i++){
+        for(let j = -1; j<=1; j++){
+          if(i === 0 && j=== 0 ){
+            continue
+          }try{
+            if(cells[x+i][y+j]){
+              alive++
+            }
+          }catch (e){}
+          if(alive> 3){
+            return alive
+          }
+        }
+      }
+      return alive;
+    };
 
-    const createRandom = () =>{
-      const matrix = new Array(80).fill('').map(() => new Array(80).fill(Math.random()<0.5));
-      cells.push(matrix);
-    };    
-    
-    const onClickClean = () => {
-      setClickable(!isClickable);
-    }
-    
+    const copy = () => {
+      const copyArray = [];
+      for(let x = 0; x<cells.length; x++){
+        copyArray.push([]);
+        for( let y= 0; y<cells.length; y++){
+          copyArray[x][y] = cells[x][y];
+        }
+      }
+      return copyArray;
+    };
+
+    const nextState = () => {
+      const tempArray = copy();
+      for(let x = 0; x<cells.length; x++ ){
+        for(let y=0; y<cells.length; y++){
+          let alive = evaluateAlive(x,y);
+          if(tempArray[x][y]){
+            if(alive <2 || alive > 3){ // cell has to die
+              tempArray[x][y]= false;
+            }
+          }else{
+            if(alive === 3 ){
+              tempArray[x][y]= true; // cell has to live
+            }
+          }
+        }
+      }
+      setCells(tempArray);
+    };
+
     return(
       <div>
         <div className='butons-menu'>
-          <button onClick={onClickStart}>{isClickable ? 'Start' : 'Stop'}</button>
-          <button onClick={onClickClean}>Clear Matrix</button>
+          <button onClick={onClickStart}>Start</button>
         </div>
         <div>
           <table className='table-container' cellPadding={0} cellSpacing={0}> 
@@ -33,8 +72,8 @@ function Table() {
               cells.map((row, i) => {
                 return (
                   <tr key={i}>
-                    {row.map((colum, j) => {
-                    return <Cell x={i} y={j}/>
+                    {row.map((column, j) => {
+                    return <Cell key={j} isActive={column} x={i} y={j}/>
                     })}
                 </tr>
                 )
