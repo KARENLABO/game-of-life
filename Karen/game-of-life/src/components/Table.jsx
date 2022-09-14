@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Cell from './Cell';
 import './Table.css';
 
 
 function Table() {
-  const spaces = 60;
-  const [cells, setCells] = useState(new Array(spaces).fill('').map(() => new Array(spaces).fill(Math.random()<.5)));
+  const spaces = 50;
+  const [cells, setCells] = useState(new Array(spaces).fill('').map(() => new Array(spaces).fill(Math.random()<.1)));
+  const [runProgram, setRunProgram] = useState(false);
 
     const onClickStart = () => {
-      nextState();
+      setRunProgram(true);
     }
-    
+
+    setTimeout(() => {
+      if(runProgram){
+        nextState()
+      }
+    }, 150);
+
     const evaluateAlive = (x,y) => {
       let alive = 0;
       for(let i= -1; i<1; i++){
