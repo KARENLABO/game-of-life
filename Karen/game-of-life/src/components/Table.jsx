@@ -5,18 +5,31 @@ import './Table.css';
 
 function Table() {
   const spaces = 50;
-  const [cells, setCells] = useState(new Array(spaces).fill('').map(() => new Array(spaces).fill(Math.random()<.1)));
+  const [cells, setCells] = useState(new Array(spaces).fill('').map(() => new Array(spaces).fill(false)));
   const [runProgram, setRunProgram] = useState(false);
 
     const onClickStart = () => {
       setRunProgram(true);
-    }
+      
+    };
+
+    const onClickCustom = () => {
+      setCells(new Array(spaces).fill('').map(() => new Array(spaces).fill(Math.random()<.1)));
+    };
+
+    const onClickClear = () => {
+      setCells(new Array(spaces).fill('').map(() => new Array(spaces).fill(false)));
+    };
+
+    const onClickPause = () => {
+      setRunProgram(false);
+    };
 
     setTimeout(() => {
       if(runProgram){
         nextState()
       }
-    }, 150);
+    }, 300);
 
     const evaluateAlive = (x,y) => {
       let alive = 0;
@@ -71,7 +84,11 @@ function Table() {
     return(
       <div>
         <div className='butons-menu'>
-          <button onClick={onClickStart}>Start</button>
+          <button onClick={onClickStart} disabled={runProgram}>
+            Start</button>
+          <button onClick={onClickPause}disabled={!runProgram}>Pause</button>
+          <button onClick={onClickCustom}>Random Values</button>
+          <button onClick={onClickClear}>Clear Matrix</button>
         </div>
         <div>
           <table className='table-container' cellPadding={0} cellSpacing={0}> 
