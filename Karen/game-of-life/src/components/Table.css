@@ -1,20 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
 
+.game-container {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    padding: 20px;
+}
+
+.game-container h1{
+    margin: 10px 0;
+    color: #37343d;
+}
+
+
+.header{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    text-align:justify;
+}
+
+
+.header h4{
+    text-align:justify;
+    margin: 0;
+    margin-left: 3%;
+    
+}
+
+.rules{
+    padding: 10px;
+}
+
 .table-container{
-    width:100vw;
-    height: 80vh;
-    border: 1px #6420ff solid;
+    width:calc(90%);
+    height: 79vh;
+   
 }
 
-td{
-    border: 1px #eee solid;
+.table-container td{
+ border: 1px #eee solid;
 }
 
-.butons-menu{
+
+.menus-buttons{
     display: flex;
     justify-content: center;
-    align-items: end;
+    flex-wrap: wrap;
+    align-items: center;
     margin-bottom: 1rem;
     gap: 2rem;
     min-height: 7rem;
