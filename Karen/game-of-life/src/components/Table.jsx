@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Cell from './Cell';
 import './Table.css';
+import {nextState, copy} from './helperFunctions'
 
 
 function Table() {
-  const spaces = 50;
+  const spaces = 60;
   const [cells, setCells] = useState(new Array(spaces).fill('').map(() => new Array(spaces).fill(false)));
   const [runProgram, setRunProgram] = useState(false);
 
@@ -17,7 +18,10 @@ function Table() {
     };
 
     const onClickClear = () => {
-      setCells(new Array(spaces).fill('').map(() => new Array(spaces).fill(false)));
+      if(!runProgram){
+        setCells(new Array(spaces).fill('').map(() => new Array(spaces).fill(false)));
+      }
+      
     };
 
     const onClickPause = () => {
@@ -26,7 +30,7 @@ function Table() {
 
     const onClickCell = (x,y ) => {
       if(!runProgram){
-        const tempArray = copy();
+        const tempArray = copy(cells);
         tempArray[x][y] = !tempArray[x][y];
         setCells(tempArray);
       }
@@ -34,61 +38,9 @@ function Table() {
 
     setTimeout(() => {
       if(runProgram){
-        nextState()
+        nextState(cells, setCells);
       }
     }, 300);
-
-    const evaluateAlive = (x,y) => {
-      let alive = 0;
-      for(let i= -1; i<=1; i++){
-        for(let j = -1; j<=1; j++){
-          if(i === 0 && j=== 0 ){
-            continue
-          }
-          try{
-            if(cells[x+i][y+j]){
-              alive++
-            }
-          }catch (e){}
-          if(alive> 3){
-            return alive
-          }
-        }
-      }
-      return alive;
-    };
-
-    const copy = () => {
-      const copyArray = [];
-      for(let x = 0; x<cells.length; x++){
-        copyArray.push([]);
-        for( let y= 0; y<cells.length; y++){
-          copyArray[x][y] = cells[x][y];
-        }
-      }
-      return copyArray;
-    };
-
-    const nextState = () => {
-      const tempArray = copy();
-      for(let x = 0; x<cells.length; x++ ){
-        for(let y=0; y<cells.length; y++){
-          let alive = evaluateAlive(x,y);
-          if(tempArray[x][y]){
-            if(alive <2 || alive > 3){ // cell has to die
-              tempArray[x][y]= false;
-            }
-          }else{
-            if(alive === 3 ){
-              tempArray[x][y]= true; // cell has to live
-            }
-          }
-        }
-      }
-      setCells(tempArray);
-    };
-
-
 
     return(
       <div>
