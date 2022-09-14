@@ -10,7 +10,6 @@ function Table() {
 
     const onClickStart = () => {
       setRunProgram(true);
-      
     };
 
     const onClickCustom = () => {
@@ -23,6 +22,14 @@ function Table() {
 
     const onClickPause = () => {
       setRunProgram(false);
+    };
+
+    const onClickCell = (x,y ) => {
+      if(!runProgram){
+        const tempArray = copy();
+        tempArray[x][y] = !tempArray[x][y];
+        setCells(tempArray);
+      }
     };
 
     setTimeout(() => {
@@ -81,6 +88,8 @@ function Table() {
       setCells(tempArray);
     };
 
+
+
     return(
       <div>
         <div className='butons-menu'>
@@ -94,11 +103,11 @@ function Table() {
           <table className='table-container' cellPadding={0} cellSpacing={0}> 
             <tbody>
             {
-              cells.map((row, i) => {
+              cells.map((row, x) => {
                 return (
-                  <tr key={i}>
-                    {row.map((column, j) => {
-                    return <Cell key={j} isActive={column} x={i} y={j}/>
+                  <tr key={x}>
+                    {row.map((column, y) => {
+                    return <Cell key={y} onClickCell={onClickCell} isActive={column} x={x} y={y}/>
                     })}
                 </tr>
                 )
