@@ -14,7 +14,9 @@ function Table() {
     };
 
     const onClickCustom = () => {
-      setCells(new Array(spaces).fill('').map(() => new Array(spaces).fill(Math.random()<.1)));
+      if(!runProgram){
+        setCells(new Array(spaces).fill('').map(() => new Array(spaces).fill(Math.random()<.1)));
+      }
     };
 
     const onClickClear = () => {
