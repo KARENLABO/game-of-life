@@ -5,7 +5,7 @@ import Header from "../Header";
 import { nextState, copy } from "../helperFunctions";
 
 function Table() {
-  const spaces = 50;
+  const spaces = 20;
   const [cells, setCells] = useState(
     new Array(spaces).fill("").map(() => new Array(spaces).fill(false))
   );
@@ -61,12 +61,12 @@ function Table() {
         runProgram={runProgram}
       />
 
-      <div>
-        <table className="table-container" cellPadding={0} cellSpacing={0}>
-          <tbody>
+      <div className="table-container">
+        <table className="table" cellPadding={0} cellSpacing={0}>
+          <tbody className="table-body">
             {cells.map((row, x) => {
               return (
-                <tr key={x}>
+                <tr className="table-body" key={x}>
                   {row.map((column, y) => {
                     return (
                       <Cell
